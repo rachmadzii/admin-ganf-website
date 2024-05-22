@@ -13,10 +13,22 @@ const Login = () => {
     password: '',
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   if (isAuthenticated) {
     return <Navigate to="/" />;
   }
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+
+    const passwordInput = document.getElementById('password');
+    if (showPassword) {
+      passwordInput.type = 'password';
+    } else {
+      passwordInput.type = 'text';
+    }
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -69,17 +81,26 @@ const Login = () => {
             }
             autoComplete="off"
           />
-          <input
-            id="password"
-            type="password"
-            placeholder="Password"
-            className="input-field--large"
-            value={formState.password}
-            onChange={(e) =>
-              setFormState({ ...formState, password: e.target.value })
-            }
-            autoComplete="off"
-          />
+          <div className="relative">
+            <input
+              id="password"
+              type="password"
+              placeholder="Password"
+              className="input-field--large"
+              value={formState.password}
+              onChange={(e) =>
+                setFormState({ ...formState, password: e.target.value })
+              }
+              autoComplete="off"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-[0.6rem]"
+              onClick={handleShowPassword}
+            >
+              <i className={`fa-regular fa-eye${showPassword ? '-slash' : ''}`}></i>
+            </button>
+          </div>
           <a href="/login" className="link-forgot-password">
             Forgot Password?
           </a>

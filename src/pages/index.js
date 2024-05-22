@@ -6,7 +6,7 @@ import Promotions from './Promotions/Promotions';
 import PromotionsEdit from './Promotions/PromotionsEdit';
 import PromotionsAdd from './Promotions/PromotionsAdd';
 import Settings from './Settings/Settings';
-import Login from './Auth/Login';
+import Login from './Login/Login';
 
 export {
   Dashboard,

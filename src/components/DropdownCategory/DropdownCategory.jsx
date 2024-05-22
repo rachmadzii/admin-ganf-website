@@ -44,8 +44,7 @@ const DropdownCategory = ({ selectedCategory, onCategoryChange }) => {
   const handleSelectCategoryItem = (category) => {
     setCategory(category);
     onCategoryChange(category);
-    const dropdown = document.querySelector('.category-menu');
-    dropdown.classList.add('hidden');
+    handleSelectCategory();
   };
 
   return (
