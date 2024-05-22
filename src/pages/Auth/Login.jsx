@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { getUrl } from '../../utils/apiUrl';
 
 const Login = () => {
   const { isAuthenticated, login } = useContext(AuthContext);
@@ -33,7 +34,7 @@ const Login = () => {
       };
 
       const response = await axios.post(
-        'http://localhost:3000/api/auth/login',
+        `${getUrl()}/api/auth/login`,
         loginData,
         {
           headers: {
@@ -48,7 +49,7 @@ const Login = () => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      toast.error(`${error.response.data.message}. Please try again.`);
+      toast.error('Error logging in. Please try again.');
     }
   };
 
