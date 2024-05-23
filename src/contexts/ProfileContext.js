@@ -9,7 +9,7 @@ const ProfileProvider = ({ children }) => {
   const [profile, setProfile] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -20,6 +20,8 @@ const ProfileProvider = ({ children }) => {
         const data = response.data.data;
         setProfile(data);
       } catch (error) {
+        if (error.response.data.status === 401) logout();
+
         setIsError(true);
         toast.error('Error fetching profile data. Please try again.');
       } finally {
@@ -28,7 +30,7 @@ const ProfileProvider = ({ children }) => {
     };
 
     fetchProfiles();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, logout]);
 
   return (
     <ProfileContext.Provider value={{ profile, isLoading, isError }}>

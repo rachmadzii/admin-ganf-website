@@ -6,6 +6,8 @@ import UploadPhoto from '../../components/UploadPhoto/UploadPhoto';
 import DropdownCategory from '../../components/DropdownCategory/DropdownCategory';
 import axiosInstance from '../../utils/axiosInstance';
 import { loadingWhiteIcon } from '../../assets';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const ProductsEdit = () => {
   const { id } = useParams();
@@ -20,6 +22,7 @@ const ProductsEdit = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
   const [newPhoto, setNewPhoto] = useState(null);
+  const [content, setContent] = useState('');
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -36,6 +39,7 @@ const ProductsEdit = () => {
         };
 
         setFormState(productData);
+        setContent(data.description);
       } catch (error) {
         toast.error('Error fetching product data. Please try again.');
         setIsError(true);
@@ -46,6 +50,11 @@ const ProductsEdit = () => {
 
     fetchProduct();
   }, [id]);
+
+  const handleDescriptionChange = (event, editor) => {
+    setContent(editor.getData());
+    setFormState({ ...formState, description: content });
+  };
 
   const handlePhotoChange = (newPhoto) => {
     setNewPhoto(newPhoto);
@@ -87,6 +96,12 @@ const ProductsEdit = () => {
       setIsLoadingSubmit(false);
       toast.error('Error updating product. Please try again.');
     }
+  };
+
+  const editorConfiguration = {
+    toolbar: {
+      items: ['bold', 'italic', '|', 'bulletedList', 'numberedList'],
+    },
   };
 
   return (
@@ -172,22 +187,15 @@ const ProductsEdit = () => {
                       </div>
 
                       <div className="flex flex-col gap-2">
-                        <label htmlFor="description" className="font-medium">
-                          Description
-                        </label>
-                        <textarea
-                          id="description"
-                          className="textarea-field h-40"
-                          value={formState.description}
-                          onChange={(e) =>
-                            setFormState({
-                              ...formState,
-                              description: e.target.value,
-                            })
-                          }
-                          placeholder="Description about the product"
-                          autoComplete="off"
-                        ></textarea>
+                        <p className="font-medium">Description</p>
+                        <div className="w-[500px] max-2xl:w-full">
+                          <CKEditor
+                            config={editorConfiguration}
+                            editor={ClassicEditor}
+                            data={content}
+                            onChange={handleDescriptionChange}
+                          />
+                        </div>
                       </div>
 
                       <button type="submit" className="btn-primary--small">

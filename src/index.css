@@ -8,6 +8,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --ck-border-radius: 0.5rem !important;
+  --ck-color-base-border: #fff !important;
+  --ck-focus-ring: 1px solid #3c6ca8 !important;
+}
+
 body {
   font-family: 'Quicksand', sans-serif;
 }
@@ -88,4 +94,31 @@ input#upload-photo {
 
 .link-forgot-password {
   @apply text-end text-dark-blue font-medium mt-2 text-sm hover:underline focus:outline-none focus:underline;
+}
+
+/* Custom CKEditor */
+
+.ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content .ck-toolbar {
+  @apply !rounded-b-none;
+}
+
+.ck-rounded-corners .ck.ck-toolbar {
+  @apply !rounded-[0.4rem];
+}
+
+.ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
+  @apply !shadow-none;
+}
+
+.ck.ck-editor__editable_inline {
+  @apply !pl-3 !h-40 !w-[500px] max-2xl:!w-full;
+}
+
+.ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content .ck-toolbar {
+  border-bottom: 1px solid #eeeeee !important;
+}
+
+.ck-content ol,
+.ck-content ul {
+  margin-left: 18px !important;
 }

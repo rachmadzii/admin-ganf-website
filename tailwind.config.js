@@ -8,7 +8,7 @@ module.exports = {
         mint: '#A2D89E',
         pink: '#FDC5CC',
         purple: '#AD95D0',
-        'mid-blue': '#3c6ca8',
+        'mid-blue': '#3C6CA8',
         'light-brown': '#D1C49E',
         'verylight-blue': '#E4EAF2',
         'medium-grey': '#7B7B7B',
