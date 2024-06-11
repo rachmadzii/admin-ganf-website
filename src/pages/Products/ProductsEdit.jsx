@@ -17,6 +17,7 @@ const ProductsEdit = () => {
     category: '',
     series: '',
     description: '',
+    url: '',
   });
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -36,6 +37,7 @@ const ProductsEdit = () => {
           category: data.category,
           series: data.series || '',
           description: data.description,
+          url: data.url || '',
         };
 
         setFormState(productData);
@@ -85,6 +87,7 @@ const ProductsEdit = () => {
     formData.append('category', formState.category);
     formData.append('series', formState.series);
     formData.append('description', formState.description);
+    formData.append('url', formState.url);
 
     try {
       await axiosInstance.put(`/products/${id}`, formData);
@@ -182,6 +185,26 @@ const ProductsEdit = () => {
                             })
                           }
                           placeholder="Series name for clothing product"
+                          autoComplete="off"
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <label htmlFor="seriesName" className="font-medium">
+                          URL Product (Optional)
+                        </label>
+                        <input
+                          id="urlProduct"
+                          className="input-field"
+                          type="text"
+                          value={formState.url}
+                          onChange={(e) =>
+                            setFormState({
+                              ...formState,
+                              url: e.target.value,
+                            })
+                          }
+                          placeholder="URL product for buy product"
                           autoComplete="off"
                         />
                       </div>

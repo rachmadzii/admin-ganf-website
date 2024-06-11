@@ -15,6 +15,7 @@ const ProductsAdd = () => {
     category: '',
     series: '',
     description: '',
+    url: '',
   });
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
   const [content, setContent] = useState(
@@ -54,6 +55,7 @@ const ProductsAdd = () => {
     formData.append('category', formState.category);
     formData.append('series', formState.series);
     formData.append('description', formState.description);
+    formData.append('url', formState.url);
 
     try {
       await axiosInstance.post('/products', formData);
@@ -144,6 +146,26 @@ const ProductsAdd = () => {
                           })
                         }
                         placeholder="Series name for clothing product"
+                        autoComplete="off"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="seriesName" className="font-medium">
+                        URL Product (Optional)
+                      </label>
+                      <input
+                        id="urlProduct"
+                        className="input-field"
+                        type="text"
+                        value={formState.url}
+                        onChange={(e) =>
+                          setFormState({
+                            ...formState,
+                            url: e.target.value,
+                          })
+                        }
+                        placeholder="URL product for buy product"
                         autoComplete="off"
                       />
                     </div>

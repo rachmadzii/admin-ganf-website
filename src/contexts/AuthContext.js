@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     Cookies.remove('accessToken');
     Cookies.remove('isAuthenticated');
-    window.location = '/login';
+    window.location = 'https://ganf-website.vercel.app';
   };
 
   return (
